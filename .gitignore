@@ -1,0 +1,22 @@
+fetch_protein_for_davis.ipynb
+protein_feature_extraction.ipynb
+
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+env/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Regenerable pipeline cache (omit if you LFS-track cache above)
+data/cache/uniprot_json/
+data/cache/protein_features_*.parquet
+
+# Optional: avoid duplicate raw copy (keep only data/raw/)
+raw/
