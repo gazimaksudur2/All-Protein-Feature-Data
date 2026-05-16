@@ -1,4 +1,4 @@
-# AllData — Protein Feature Enrichment for DTI Datasets
+# All-Protein-Feature-Data — Protein Feature Enrichment for DTI Datasets
 
 I built this repository to enrich three drug–target interaction (DTI) benchmark datasets—**Davis**, **KIBA**, and **BindingDB-KD**—with complete protein-level features from UniProt. Each raw interaction row is conjugated (left-merged) with metadata and sequence-derived descriptors so downstream models can use both the original affinity data and rich protein representations keyed by a normalized UniProt accession.
 
@@ -34,7 +34,7 @@ I intentionally did **not** modify the reference notebooks and did **not** inclu
 ## Repository Layout
 
 ```text
-AllData/
+All-Protein-Feature-Data/
 ├── README.md                              # this file
 ├── protein_feature_enrichment_batch.ipynb # batch enrichment pipeline (run this)
 ├── protein_feature_extraction.ipynb       # reference: small-scale UniProt demo
@@ -52,6 +52,153 @@ AllData/
     ├── testrun/                           # smoke test: first 10 rows per dataset
     └── processed/                         # full-scale enriched outputs (after FULL_RUN)
 ```
+
+---
+
+## Getting Started (Clone This Repository)
+
+Large dataset and output files in this repo are stored with **Git LFS**. If you clone without LFS, you will only get small pointer files instead of real `.parquet` / `.tsv` data.
+
+### Prerequisites
+
+1. **Git** — https://git-scm.com/downloads  
+2. **Git LFS** — https://git-lfs.github.com/
+
+Install Git LFS once on your machine, then enable it for your user account:
+
+```powershell
+# Windows (winget)
+winget install GitHub.GitLFS
+
+# macOS (Homebrew)
+brew install git-lfs
+
+# Linux (Debian/Ubuntu)
+sudo apt install git-lfs
+
+# Enable LFS globally (run once per machine)
+git lfs install
+```
+
+### Clone the repository
+
+Replace the URL with this repository’s actual remote.
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+```
+
+SSH:
+
+```powershell
+git clone git@github.com:YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+```
+
+If you already cloned **before** installing Git LFS, pull the real files afterward:
+
+```powershell
+cd YOUR_REPO
+git lfs install
+git lfs pull
+```
+
+### Verify LFS files downloaded correctly
+
+```powershell
+git lfs ls-files
+```
+
+You should see pointer entries with a `*` (LFS object present locally), for example:
+
+```text
+data/cache/davis_target_to_uniprot.tsv
+data/testrun/davis_enriched.parquet
+data/testrun/kiba_enriched.parquet
+data/testrun/bindingdb_kd_enriched.parquet
+```
+
+Quick sanity check — file sizes should be hundreds of KB or larger, not ~130 bytes:
+
+```powershell
+# PowerShell
+Get-ChildItem data/testrun/*.parquet | Select-Object Name, Length
+```
+
+```bash
+# macOS / Linux
+ls -lh data/testrun/*.parquet
+```
+
+If sizes look like pointer stubs, run `git lfs pull` again.
+
+### What is tracked in Git vs Git LFS
+
+| Path | Storage | Notes |
+|------|---------|--------|
+| `protein_feature_enrichment_batch.ipynb` | Git | Main pipeline |
+| `README.md`, `.gitattributes`, `.gitignore` | Git | Docs and LFS rules |
+| `data/testrun/*_enriched.parquet` | **Git LFS** | Smoke-test enriched outputs (10 rows each) |
+| `data/cache/davis_target_to_uniprot.tsv` | **Git LFS** | Davis gene → UniProt map (partial cache from test run) |
+| `data/raw/*.parquet` | *Not in repo* | Raw DTI inputs — see below |
+| `data/cache/uniprot_json/` | *Not in repo* | Regenerable; created when you run the notebook |
+| `data/processed/` | *Not in repo* | Full-run outputs; created with `FULL_RUN = True` |
+| `raw/` | *Not in repo* | Ignored by `.gitignore` (optional local copy of inputs) |
+| `protein_feature_extraction.ipynb`, `fetch_protein_for_davis.ipynb` | *Not in repo* | Reference notebooks (local only unless you add them) |
+
+LFS patterns are defined in `.gitattributes`:
+
+```gitattributes
+*.parquet filter=lfs diff=lfs merge=lfs -text
+data/cache/uniprot_json/*.json filter=lfs diff=lfs merge=lfs -text
+data/cache/*.tsv filter=lfs diff=lfs merge=lfs -text
+```
+
+### Raw input data (required to run the full pipeline)
+
+The notebook reads from **`data/raw/`**. Those three parquets are **not** currently committed to this repository. After cloning, either:
+
+**Option A — Place files manually**
+
+Put `davis.parquet`, `kiba.parquet`, and `bindingdb_kd.parquet` into `data/raw/`.
+
+**Option B — Use the legacy `raw/` folder**
+
+Copy them into `raw/` at the project root; the notebook’s `ensure_data_dirs()` will copy them into `data/raw/` on first run if `data/raw/` is missing.
+
+You need network access and UniProt API availability to generate features for datasets not already present in `data/testrun/`.
+
+### Python environment (after clone)
+
+```powershell
+cd YOUR_REPO
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1   # Windows
+# source .venv/bin/activate    # macOS / Linux
+
+pip install requests pandas numpy tqdm propy3 biopython pyarrow jupyter
+```
+
+Or open `protein_feature_enrichment_batch.ipynb` in Jupyter / VS Code and run the first cell (`%pip install ...`).
+
+### Run the pipeline
+
+1. Start Jupyter from the repo root so `Path.cwd()` is the project directory.  
+2. Open `protein_feature_enrichment_batch.ipynb`.  
+3. Run all cells through **Configuration**, then the **Test run** or **Full-scale run** section.
+
+See [How to Run](#how-to-run) for flags (`TEST_RUN`, `FULL_RUN`, etc.).
+
+### Troubleshooting (clone / LFS)
+
+| Problem | Fix |
+|---------|-----|
+| Parquet files are tiny (~130 B) | Install Git LFS, run `git lfs install`, then `git lfs pull` |
+| `git lfs pull` fails with 404 / auth | Ensure you have repo access; for private repos, use SSH or a personal access token |
+| `data/raw/` missing | Add the three raw parquets manually (see above) |
+| Notebook can’t find data | Run Jupyter from the repo root, not a parent folder |
+| Re-running setup duplicates folders | It does not — `mkdir(..., exist_ok=True)` and parquet copy are skipped if paths already exist |
 
 ---
 
