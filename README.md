@@ -4,6 +4,19 @@ I built this repository to enrich three drug–target interaction (DTI) benchmar
 
 ---
 
+## Dataset documentation
+
+Full analytics, parquet schemas, and feature descriptions are in **[`docs/`](docs/README.md)**:
+
+- [Feature catalog](docs/feature_catalog.md) — UniProt metadata, AAC, PAAC, CTD
+- [Processed overview](docs/processed/overview.md) — cross-dataset comparison
+- Per-dataset raw & enriched reports under [`docs/raw/`](docs/raw/) and [`docs/processed/`](docs/processed/)
+- Complete column-level schemas under [`docs/schemas/`](docs/schemas/)
+
+Regenerate after data changes: `python _generate_docs.py`
+
+---
+
 ## What I Did
 
 ### Problem I set out to solve
@@ -85,21 +98,21 @@ git lfs install
 Replace the URL with this repository’s actual remote.
 
 ```powershell
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/gazimaksudur2/All-Protein-Feature-Data.git
+cd All-Protein-Feature-Data
 ```
 
 SSH:
 
 ```powershell
-git clone git@github.com:YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone git@github.com/gazimaksudur2/All-Protein-Feature-Data.git
+cd All-Protein-Feature-Data
 ```
 
 If you already cloned **before** installing Git LFS, pull the real files afterward:
 
 ```powershell
-cd YOUR_REPO
+cd All-Protein-Feature-Data
 git lfs install
 git lfs pull
 ```
