@@ -2,15 +2,15 @@
 
 **File:** `data/trainready/bindingdb_kd_trainready.parquet`  
 **Source:** `data/processed/bindingdb_kd_enriched.parquet`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Overview
 
 | Metric | Processed | Train-ready |
 |--------|----------:|------------:|
 | Rows | 52,274 | 52,274 |
-| Total columns | 271 | 195 |
-| CTD columns | 147 | 71 |
+| Total columns | 271 | 157 |
+| CTD columns | 147 | 65 |
 
 ## CTD selection
 
@@ -64,7 +64,7 @@
 | `aac_E` | `float64` | 47,939 | 8.29% |
 | `aac_Q` | `float64` | 47,939 | 8.29% |
 | `aac_G` | `float64` | 47,939 | 8.29% |
-| … | … | … | (155 more columns) |
+| … | … | … | (117 more columns) |
 
 Full schema: [schemas/trainready_bindingdb_kd_schema.md](../schemas/trainready_bindingdb_kd_schema.md)
 

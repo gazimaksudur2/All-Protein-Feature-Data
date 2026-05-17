@@ -2,15 +2,15 @@
 
 **File:** `data/trainready/davis_trainready.parquet`  
 **Source:** `data/processed/davis_enriched.parquet`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Overview
 
 | Metric | Processed | Train-ready |
 |--------|----------:|------------:|
 | Rows | 25,772 | 25,772 |
-| Total columns | 239 | 161 |
-| CTD columns | 147 | 69 |
+| Total columns | 239 | 157 |
+| CTD columns | 147 | 65 |
 
 ## CTD selection
 
@@ -64,7 +64,7 @@
 | `aac_E` | `float64` | 23,256 | 9.76% |
 | `aac_Q` | `float64` | 23,256 | 9.76% |
 | `aac_G` | `float64` | 23,256 | 9.76% |
-| … | … | … | (121 more columns) |
+| … | … | … | (117 more columns) |
 
 Full schema: [schemas/trainready_davis_schema.md](../schemas/trainready_davis_schema.md)
 

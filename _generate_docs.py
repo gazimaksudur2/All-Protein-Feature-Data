@@ -391,7 +391,7 @@ def feature_catalog() -> str:
         "- **Meaning:** Composition (C), transition (T), and distribution (D) descriptors for seven physicochemical properties (hydrophobicity, polarity, side-chain volume, etc.).",
         "- **Source:** `propy.CTD.CalculateCTD` (~147 numeric features in `data/processed/`).",
         "- **Naming:** `ctd__{Property}{C|T|D}{group}{percentile}` (propy naming with double underscores).",
-        "- **Train-ready subset:** After two-stage selection in `data/trainready/`, **69–71** CTD columns remain per dataset (see [trainready/ctd_feature_selection.md](trainready/ctd_feature_selection.md)).",
+        "- **Train-ready subset:** After CTD selection + schema alignment in `data/trainready/`, all datasets share **157** columns (67 CTD + 90 non-CTD); see [trainready/ctd_feature_selection.md](trainready/ctd_feature_selection.md).",
         "",
     ]
     return "\n".join(lines)
@@ -516,8 +516,10 @@ def ctd_feature_selection_doc(reports: dict) -> str:
         "2. **Stage 1** removes many Composition (`*C1–C3`), Transition (`*T12–T23`), and low-percentile Distribution terms with variance ≤ 0.01.",
         "3. **Stage 2** removes redundant distribution bins (`HydrophobicityD*`, `PolarityD*`, `PolarizabilityD*`, `NormalizedVDWVD*`) among survivors.",
         "4. **BindingDB:** fewer stage-1 drops (42) but more stage-2 drops (34) vs Davis/KIBA.",
-        "5. **Alignment:** train-ready row counts and ID/SMILES columns match `data/processed/` exactly.",
-        "6. **`data/processed/` is never modified** by the selection notebook.",
+        "5. **PAAC schema cleanup (BindingDB):** 32 non-standard `paac_{AA}` / `paac_dipep_*` fallback columns removed before alignment.",
+        "6. **Uniform schema:** All three `*_trainready.parquet` files use the **same 157 columns** (column intersection after PAAC cleanup).",
+        "7. **Alignment:** Row counts and ID/SMILES columns match `data/processed/` exactly.",
+        "8. **`data/processed/` is never modified** by the selection notebook.",
         "",
         "## Dropped-feature logs",
         "",

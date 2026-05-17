@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/kiba_enriched.parquet`  
 **Raw reference:** `data/raw/kiba.parquet`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Overview
 
@@ -225,4 +225,4 @@ max          17.200179
 
 ## Train-ready derivative
 
-CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/kiba_trainready.parquet`](../../data/trainready/kiba_trainready.parquet) with **162** columns (CTD 147 → 70). See [trainready/kiba.md](../trainready/kiba.md).
+CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/kiba_trainready.parquet`](../../data/trainready/kiba_trainready.parquet) with **157** columns (CTD 147 → 65). See [trainready/kiba.md](../trainready/kiba.md).

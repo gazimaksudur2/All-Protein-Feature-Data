@@ -1,7 +1,7 @@
 # Train-ready datasets — overview
 
 **Directory:** `data/trainready/`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 Final modeling inputs after CTD feature selection. `data/processed/` is unchanged.
 
@@ -9,9 +9,9 @@ Final modeling inputs after CTD feature selection. `data/processed/` is unchange
 
 | File | Rows | Columns | CTD cols | Size (MB) |
 |------|-----:|--------:|---------:|----------:|
-| `davis_trainready.parquet` | 25,772 | 161 | 69 | 1.65 |
-| `kiba_trainready.parquet` | 117,657 | 162 | 70 | 5.91 |
-| `bindingdb_kd_trainready.parquet` | 52,274 | 195 | 71 | 9.80 |
+| `davis_trainready.parquet` | 25,772 | 157 | 65 | 1.62 |
+| `kiba_trainready.parquet` | 117,657 | 157 | 65 | 5.72 |
+| `bindingdb_kd_trainready.parquet` | 52,274 | 157 | 65 | 9.54 |
 
 ## Pipeline
 

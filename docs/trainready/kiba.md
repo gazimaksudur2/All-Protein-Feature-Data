@@ -2,15 +2,15 @@
 
 **File:** `data/trainready/kiba_trainready.parquet`  
 **Source:** `data/processed/kiba_enriched.parquet`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Overview
 
 | Metric | Processed | Train-ready |
 |--------|----------:|------------:|
 | Rows | 117,657 | 117,657 |
-| Total columns | 239 | 162 |
-| CTD columns | 147 | 70 |
+| Total columns | 239 | 157 |
+| CTD columns | 147 | 65 |
 
 ## CTD selection
 
@@ -64,7 +64,7 @@
 | `aac_E` | `float64` | 117,657 | 0.00% |
 | `aac_Q` | `float64` | 117,657 | 0.00% |
 | `aac_G` | `float64` | 117,657 | 0.00% |
-| … | … | … | (122 more columns) |
+| … | … | … | (117 more columns) |
 
 Full schema: [schemas/trainready_kiba_schema.md](../schemas/trainready_kiba_schema.md)
 

@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/bindingdb_kd_enriched.parquet`  
 **Raw reference:** `data/raw/bindingdb_kd.parquet`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Overview
 
@@ -238,4 +238,4 @@ max      1.000000e+07
 
 ## Train-ready derivative
 
-CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/bindingdb_kd_trainready.parquet`](../../data/trainready/bindingdb_kd_trainready.parquet) with **195** columns (CTD 147 → 71). See [trainready/bindingdb_kd.md](../trainready/bindingdb_kd.md).
+CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/bindingdb_kd_trainready.parquet`](../../data/trainready/bindingdb_kd_trainready.parquet) with **157** columns (CTD 147 → 65). See [trainready/bindingdb_kd.md](../trainready/bindingdb_kd.md).

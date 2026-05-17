@@ -4,7 +4,7 @@
 **Input:** `data/processed/*_enriched.parquet`  
 **Output:** `data/trainready/*_trainready.parquet`  
 **Reports:** `data/trainready/reports/dropped_ctd_features.json`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## Objective
 

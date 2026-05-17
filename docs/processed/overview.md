@@ -1,7 +1,7 @@
 # Processed datasets — cross-dataset overview
 
 **Directory:** `data/processed/`  
-**Generated:** 2026-05-17 09:28 UTC
+**Generated:** 2026-05-17 09:37 UTC
 
 ## File inventory
 
@@ -41,6 +41,6 @@ Train-ready outputs in `data/trainready/` (see [trainready/overview.md](../train
 
 | Dataset | Processed cols | Train-ready cols | CTD 147 → kept |
 |---------|---------------:|-----------------:|---------------:|
-| **davis** | 239 | 161 | 147 → 69 |
-| **kiba** | 239 | 162 | 147 → 70 |
-| **bindingdb_kd** | 271 | 195 | 147 → 71 |
+| **davis** | 239 | 157 | 147 → 65 |
+| **kiba** | 239 | 157 | 147 → 65 |
+| **bindingdb_kd** | 271 | 157 | 147 → 65 |

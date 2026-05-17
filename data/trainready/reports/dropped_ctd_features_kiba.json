@@ -157,6 +157,7 @@
     "ctd__HydrophobicityD3100"
   ],
   "dataset": "kiba",
-  "input_rows": 117657,
-  "output_rows": 117657
+  "columns_after_ctd_and_paac_cleanup": 162,
+  "canonical_columns_count": 157,
+  "output_columns": 157
 }

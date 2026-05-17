@@ -24,7 +24,7 @@ Notebook **`ctd_feature_selection.ipynb`** applies variance + correlation filter
 - `data/trainready/{dataset}_trainready.parquet`
 - `data/trainready/reports/dropped_ctd_features.json` (and per-dataset reports)
 
-Does **not** modify `data/processed/`.
+Does **not** modify `data/processed/`. Removes BindingDB PAAC fallback columns and aligns all three datasets to a **shared 157-column** schema.
 
 ---
 
