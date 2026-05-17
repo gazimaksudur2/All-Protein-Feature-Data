@@ -58,5 +58,6 @@ Features appended during enrichment come from **UniProt REST JSON** and **sequen
 ## CTD (`ctd_*`)
 
 - **Meaning:** Composition (C), transition (T), and distribution (D) descriptors for seven physicochemical properties (hydrophobicity, polarity, side-chain volume, etc.).
-- **Source:** `propy.CTD.CalculateCTD` (~147 numeric features).
+- **Source:** `propy.CTD.CalculateCTD` (~147 numeric features in `data/processed/`).
 - **Naming:** `ctd__{Property}{C|T|D}{group}{percentile}` (propy naming with double underscores).
+- **Train-ready subset:** After two-stage selection in `data/trainready/`, **69–71** CTD columns remain per dataset (see [trainready/ctd_feature_selection.md](trainready/ctd_feature_selection.md)).

@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/davis_enriched.parquet`  
 **Raw reference:** `data/raw/davis.parquet`  
-**Generated:** 2026-05-16 14:29 UTC
+**Generated:** 2026-05-17 09:28 UTC
 
 ## Overview
 
@@ -272,3 +272,7 @@ max      10000.000000
 - `p38-beta`
 - `p38-delta`
 - `p38-gamma`
+
+## Train-ready derivative
+
+CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/davis_trainready.parquet`](../../data/trainready/davis_trainready.parquet) with **161** columns (CTD 147 → 69). See [trainready/davis.md](../trainready/davis.md).

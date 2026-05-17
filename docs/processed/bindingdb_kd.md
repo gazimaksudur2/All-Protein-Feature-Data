@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/bindingdb_kd_enriched.parquet`  
 **Raw reference:** `data/raw/bindingdb_kd.parquet`  
-**Generated:** 2026-05-16 14:29 UTC
+**Generated:** 2026-05-17 09:28 UTC
 
 ## Overview
 
@@ -235,3 +235,7 @@ max      1.000000e+07
 - High global null rate on all 232 feature columns is driven by **sparse extra `paac_{AA}` columns**; core descriptors are >99.9% populated for mapped rows.
 - Rows with UniProt but any null in core features (`sequence_length`, `molecular_weight`, `aac_A`, `paac_APAAC1`): **15**.
 - One composite UniProt lookup (`P0DP25,P0DP24,P0DP23`) failed HTTP 400.
+
+## Train-ready derivative
+
+CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/bindingdb_kd_trainready.parquet`](../../data/trainready/bindingdb_kd_trainready.parquet) with **195** columns (CTD 147 → 71). See [trainready/bindingdb_kd.md](../trainready/bindingdb_kd.md).

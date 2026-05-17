@@ -1,7 +1,7 @@
 # Processed datasets — cross-dataset overview
 
 **Directory:** `data/processed/`  
-**Generated:** 2026-05-16 14:29 UTC
+**Generated:** 2026-05-17 09:28 UTC
 
 ## File inventory
 
@@ -33,4 +33,14 @@
 | KIBA | [raw/kiba.md](raw/kiba.md) | [processed/kiba.md](processed/kiba.md) |
 | BindingDB-KD | [raw/bindingdb_kd.md](raw/bindingdb_kd.md) | [processed/bindingdb_kd.md](processed/bindingdb_kd.md) |
 
-See also: [feature_catalog.md](../feature_catalog.md)
+See also: [feature_catalog.md](feature_catalog.md)
+
+## Downstream: CTD feature selection
+
+Train-ready outputs in `data/trainready/` (see [trainready/overview.md](../trainready/overview.md)):
+
+| Dataset | Processed cols | Train-ready cols | CTD 147 → kept |
+|---------|---------------:|-----------------:|---------------:|
+| **davis** | 239 | 161 | 147 → 69 |
+| **kiba** | 239 | 162 | 147 → 70 |
+| **bindingdb_kd** | 271 | 195 | 147 → 71 |

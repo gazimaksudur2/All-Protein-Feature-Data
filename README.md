@@ -10,10 +10,21 @@ Full analytics, parquet schemas, and feature descriptions are in **[`docs/`](doc
 
 - [Feature catalog](docs/feature_catalog.md) — UniProt metadata, AAC, PAAC, CTD
 - [Processed overview](docs/processed/overview.md) — cross-dataset comparison
-- Per-dataset raw & enriched reports under [`docs/raw/`](docs/raw/) and [`docs/processed/`](docs/processed/)
+- [Train-ready overview](docs/trainready/overview.md) — CTD-filtered modeling inputs
+- [CTD feature selection](docs/trainready/ctd_feature_selection.md) — methodology & findings
+- Per-dataset reports: [`docs/raw/`](docs/raw/), [`docs/processed/`](docs/processed/), [`docs/trainready/`](docs/trainready/)
 - Complete column-level schemas under [`docs/schemas/`](docs/schemas/)
 
 Regenerate after data changes: `python _generate_docs.py`
+
+### CTD feature selection (train-ready)
+
+Notebook **`ctd_feature_selection.ipynb`** applies variance + correlation filtering on `ctd__*` columns and writes:
+
+- `data/trainready/{dataset}_trainready.parquet`
+- `data/trainready/reports/dropped_ctd_features.json` (and per-dataset reports)
+
+Does **not** modify `data/processed/`.
 
 ---
 

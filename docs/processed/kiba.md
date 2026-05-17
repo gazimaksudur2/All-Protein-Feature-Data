@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/kiba_enriched.parquet`  
 **Raw reference:** `data/raw/kiba.parquet`  
-**Generated:** 2026-05-16 14:29 UTC
+**Generated:** 2026-05-17 09:28 UTC
 
 ## Overview
 
@@ -222,3 +222,7 @@ max          17.200179
 
 - **100%** mapping success; all rows have `uniprot_id` and populated features.
 - Column set matches Davis/KIBA (239 columns).
+
+## Train-ready derivative
+
+CTD selection (`ctd_feature_selection.ipynb`) produces [`data/trainready/kiba_trainready.parquet`](../../data/trainready/kiba_trainready.parquet) with **162** columns (CTD 147 → 70). See [trainready/kiba.md](../trainready/kiba.md).

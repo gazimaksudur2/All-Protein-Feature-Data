@@ -17,3 +17,5 @@ Thumbs.db
 # Regenerable pipeline cache (omit if you LFS-track cache above)
 data/cache/uniprot_json/
 data/cache/protein_features_*.parquet
+
+task.md
