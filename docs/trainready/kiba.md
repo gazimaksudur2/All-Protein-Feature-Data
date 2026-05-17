@@ -2,7 +2,7 @@
 
 **File:** `data/trainready/kiba_trainready.parquet`  
 **Source:** `data/processed/kiba_enriched.parquet`  
-**Generated:** 2026-05-17 09:37 UTC
+**Generated:** 2026-05-17 16:38 UTC
 
 ## Overview
 
@@ -11,6 +11,12 @@
 | Rows | 117,657 | 117,657 |
 | Total columns | 239 | 157 |
 | CTD columns | 147 | 65 |
+
+## Row filter (preprocessing)
+
+- Rows before filter: **117,657**
+- Rows dropped (unmapped): **0**
+- Rows after filter: **117,657**
 
 ## CTD selection
 

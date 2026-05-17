@@ -391,7 +391,7 @@ def feature_catalog() -> str:
         "- **Meaning:** Composition (C), transition (T), and distribution (D) descriptors for seven physicochemical properties (hydrophobicity, polarity, side-chain volume, etc.).",
         "- **Source:** `propy.CTD.CalculateCTD` (~147 numeric features in `data/processed/`).",
         "- **Naming:** `ctd__{Property}{C|T|D}{group}{percentile}` (propy naming with double underscores).",
-        "- **Train-ready subset:** After CTD selection + schema alignment in `data/trainready/`, all datasets share **157** columns (67 CTD + 90 non-CTD); see [trainready/ctd_feature_selection.md](trainready/ctd_feature_selection.md).",
+        "- **Train-ready subset:** After row filter + CTD selection + schema alignment in `data/trainready/`, all datasets share the same columns; only mapped proteins are kept. See [trainready/ctd_feature_selection.md](trainready/ctd_feature_selection.md).",
         "",
     ]
     return "\n".join(lines)
@@ -480,6 +480,11 @@ def ctd_feature_selection_doc(reports: dict) -> str:
         "",
         "## Pipeline stages",
         "",
+        "### Stage 0 — Row filter (preprocessing)",
+        "",
+        "- **Rule:** Drop rows where `map_error` is `null_target_id` or `mapping_failed`, or `uniprot_id` is missing.",
+        "- **Rationale:** Rows without a UniProt mapping have no valid protein features for training.",
+        "",
         "### Stage 1 — Variance threshold",
         "",
         "- **Rule:** Drop CTD features with variance $\\sigma^2 \\le 0.01$.",
@@ -501,12 +506,29 @@ def ctd_feature_selection_doc(reports: dict) -> str:
         "| Dataset | CTD in | Stage 1 dropped | Stage 2 dropped | CTD kept | Reduction |",
         "|---------|------:|------------------:|------------------:|---------:|----------:|",
     ]
+    rf_block = [
+        "## Row filter results",
+        "",
+        "| Dataset | Processed rows | Dropped (unmapped) | After filter |",
+        "|---------|---------------:|-------------------:|-------------:|",
+    ]
     for name, r in reports.items():
-        s1 = len(r["dropped_stage1_low_variance"])
-        s2 = len(r["dropped_stage2_high_correlation"])
-        kept = r["kept_ctd_count"]
-        pct = 100 * (1 - kept / r["initial_ctd_count"])
-        lines.append(f"| **{name}** | 147 | {s1} | {s2} | **{kept}** | {pct:.1f}% |")
+        rf = r.get("row_filter", {})
+        rb = rf.get("rows_before", 0)
+        ra = rf.get("rows_after", 0)
+        rd = rf.get("rows_dropped_total", 0)
+        rf_block.append(f"| **{name}** | {rb:,} | {rd:,} | {ra:,} |")
+    rf_block.append("")
+    idx = lines.index("## Results summary")
+    lines[idx:idx] = rf_block
+
+    for name, r in reports.items():
+        s1 = len(r.get("dropped_stage1_low_variance", []))
+        s2 = len(r.get("dropped_stage2_high_correlation", []))
+        kept = r.get("kept_ctd_count", 0)
+        init = r.get("initial_ctd_count", 147)
+        pct = 100 * (1 - kept / init) if init else 0
+        lines.append(f"| **{name}** | {init} | {s1} | {s2} | **{kept}** | {pct:.1f}% |")
 
     lines += [
         "",
@@ -517,9 +539,10 @@ def ctd_feature_selection_doc(reports: dict) -> str:
         "3. **Stage 2** removes redundant distribution bins (`HydrophobicityD*`, `PolarityD*`, `PolarizabilityD*`, `NormalizedVDWVD*`) among survivors.",
         "4. **BindingDB:** fewer stage-1 drops (42) but more stage-2 drops (34) vs Davis/KIBA.",
         "5. **PAAC schema cleanup (BindingDB):** 32 non-standard `paac_{AA}` / `paac_dipep_*` fallback columns removed before alignment.",
-        "6. **Uniform schema:** All three `*_trainready.parquet` files use the **same 157 columns** (column intersection after PAAC cleanup).",
-        "7. **Alignment:** Row counts and ID/SMILES columns match `data/processed/` exactly.",
-        "8. **`data/processed/` is never modified** by the selection notebook.",
+        "6. **Uniform schema:** All three `*_trainready.parquet` files use the **same column set** (intersection after PAAC cleanup).",
+        "7. **Row filter:** Rows with `map_error` in `{null_target_id, mapping_failed}` or missing `uniprot_id` are dropped before CTD selection.",
+        "8. **Alignment:** Train-ready rows are a subset of `data/processed/` with valid protein mappings only.",
+        "9. **`data/processed/` is never modified** by the selection notebook.",
         "",
         "## Dropped-feature logs",
         "",
@@ -536,7 +559,9 @@ def analyze_trainready(name: str, report: dict) -> str:
     proc = pd.read_parquet(PROC_DIR / f"{name}_enriched.parquet")
     df = pd.read_parquet(TRAINREADY_DIR / f"{name}_trainready.parquet")
     n_ctd = sum(1 for c in df.columns if c.startswith("ctd__"))
-    s1 = len(report["dropped_stage1_low_variance"])
+    s1 = len(report.get("dropped_stage1_low_variance", []))
+    v_thresh = report.get("variance_threshold", 0.01)
+    c_thresh = report.get("correlation_threshold", 0.85)
     lines = [
         f"# Train-ready dataset: {name}",
         "",
@@ -552,13 +577,25 @@ def analyze_trainready(name: str, report: dict) -> str:
         f"| Total columns | {len(proc.columns)} | {len(df.columns)} |",
         f"| CTD columns | 147 | {n_ctd} |",
         "",
+    ]
+    if "row_filter" in report:
+        rf = report["row_filter"]
+        lines += [
+            "## Row filter (preprocessing)",
+            "",
+            f"- Rows before filter: **{rf.get('rows_before', len(proc)):,}**",
+            f"- Rows dropped (unmapped): **{rf.get('rows_dropped_total', 0):,}**",
+            f"- Rows after filter: **{rf.get('rows_after', len(df)):,}**",
+            "",
+        ]
+    lines += [
         "## CTD selection",
         "",
         f"| Stage | Dropped |",
         f"|-------|--------:|",
-        f"| 1 — variance ≤ {report['variance_threshold']} | {s1} |",
-        f"| 2 — \\|r\\| > {report['correlation_threshold']} | {len(report['dropped_stage2_high_correlation'])} |",
-        f"| **Final kept** | **{report['kept_ctd_count']}** |",
+        f"| 1 — variance ≤ {v_thresh} | {s1} |",
+        f"| 2 — \\|r\\| > {c_thresh} | {len(report.get('dropped_stage2_high_correlation', []))} |",
+        f"| **Final kept** | **{report.get('kept_ctd_count', n_ctd)}** |",
         "",
         "## Schema (first 40 columns)",
         "",

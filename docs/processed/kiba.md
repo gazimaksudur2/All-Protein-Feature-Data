@@ -2,7 +2,7 @@
 
 **Source file:** `data/processed/kiba_enriched.parquet`  
 **Raw reference:** `data/raw/kiba.parquet`  
-**Generated:** 2026-05-17 09:37 UTC
+**Generated:** 2026-05-17 16:38 UTC
 
 ## Overview
 

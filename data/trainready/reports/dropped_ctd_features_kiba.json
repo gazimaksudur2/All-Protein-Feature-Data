@@ -1,6 +1,4 @@
 {
-  "variance_threshold": 0.01,
-  "correlation_threshold": 0.85,
   "initial_ctd_count": 147,
   "kept_ctd_count": 70,
   "dropped_stage1_low_variance": [
@@ -156,8 +154,16 @@
     "ctd__HydrophobicityD3025",
     "ctd__HydrophobicityD3100"
   ],
+  "row_filter": {
+    "rows_before": 117657,
+    "map_error_counts_before": {
+      "None": 117657
+    },
+    "rows_dropped_total": 0,
+    "rows_after": 117657
+  },
   "dataset": "kiba",
   "columns_after_ctd_and_paac_cleanup": 162,
-  "canonical_columns_count": 157,
+  "output_rows": 117657,
   "output_columns": 157
 }

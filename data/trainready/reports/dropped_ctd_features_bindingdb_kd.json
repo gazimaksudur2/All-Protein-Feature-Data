@@ -1,6 +1,4 @@
 {
-  "variance_threshold": 0.01,
-  "correlation_threshold": 0.85,
   "initial_ctd_count": 147,
   "kept_ctd_count": 71,
   "dropped_stage1_low_variance": [
@@ -190,8 +188,17 @@
     "paac_lambda",
     "paac_weight"
   ],
+  "row_filter": {
+    "rows_before": 52274,
+    "map_error_counts_before": {
+      "None": 47941,
+      "null_target_id": 4333
+    },
+    "rows_dropped_total": 4333,
+    "rows_after": 47941
+  },
   "dataset": "bindingdb_kd",
   "columns_after_ctd_and_paac_cleanup": 163,
-  "canonical_columns_count": 157,
+  "output_rows": 47941,
   "output_columns": 157
 }

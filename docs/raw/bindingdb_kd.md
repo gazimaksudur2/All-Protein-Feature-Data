@@ -1,7 +1,7 @@
 # Raw dataset: bindingdb_kd
 
 **Source file:** `data/raw/bindingdb_kd.parquet`  
-**Generated:** 2026-05-17 09:37 UTC
+**Generated:** 2026-05-17 16:38 UTC
 
 ## Overview
 

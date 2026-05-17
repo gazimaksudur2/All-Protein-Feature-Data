@@ -1,6 +1,4 @@
 {
-  "variance_threshold": 0.01,
-  "correlation_threshold": 0.85,
   "initial_ctd_count": 147,
   "kept_ctd_count": 69,
   "dropped_stage1_low_variance": [
@@ -156,8 +154,17 @@
     "ctd__HydrophobicityD3025",
     "ctd__HydrophobicityD3100"
   ],
+  "row_filter": {
+    "rows_before": 25772,
+    "map_error_counts_before": {
+      "None": 23256,
+      "mapping_failed": 2516
+    },
+    "rows_dropped_total": 2516,
+    "rows_after": 23256
+  },
   "dataset": "davis",
   "columns_after_ctd_and_paac_cleanup": 161,
-  "canonical_columns_count": 157,
+  "output_rows": 23256,
   "output_columns": 157
 }
