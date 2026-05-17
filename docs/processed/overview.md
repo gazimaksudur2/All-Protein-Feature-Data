@@ -33,4 +33,4 @@
 | KIBA | [raw/kiba.md](raw/kiba.md) | [processed/kiba.md](processed/kiba.md) |
 | BindingDB-KD | [raw/bindingdb_kd.md](raw/bindingdb_kd.md) | [processed/bindingdb_kd.md](processed/bindingdb_kd.md) |
 
-See also: [feature_catalog.md](feature_catalog.md)
+See also: [feature_catalog.md](../feature_catalog.md)
